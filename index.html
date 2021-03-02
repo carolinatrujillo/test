@@ -1,0 +1,41 @@
+<body></body>
+<script src="/three.js"></script>
+<script>
+  // The "scene" is where stuff in our game will happen:
+  var scene = new THREE.Scene();
+  var flat = {flatShading: true};
+  var light = new THREE.AmbientLight('white', 0.8);
+  scene.add(light);
+
+  // The "camera" is what sees the stuff:
+  var aspectRatio = window.innerWidth / window.innerHeight;
+  var camera = new THREE.PerspectiveCamera(75, aspectRatio, 1, 10000);
+  camera.position.z = 500;
+  scene.add(camera);
+
+  // The "renderer" draws what the camera sees onto the screen:
+  var renderer = new THREE.WebGLRenderer({antialias: true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // ******** START CODING ON THE NEXT LINE ********
+
+const loader = new THREE.TextureLoader();
+
+loader.load('https://thumbs.dreamstime.com/b/textura-del-bu%C3%B1uelo-de-la-formaci%C3%B3n-hielo-chocolate-modelo-incons%C3%BAtil-dulce-impresi%C3%B3n-sin-fin-para-los-ni%C3%B1os-132635197.jpg', (texture) => {
+const material = new THREE.MeshBasicMaterial({
+map: texture});
+
+var shape = new THREE.TorusGeometry(100,25,50,50);
+var donut = new THREE.Mesh(shape,material);
+
+scene.add(donut);
+
+camera.position.set(100,-170,100);
+camera.lookAt(donut.position);
+
+
+  // Now, show what the camera sees on the screen:
+  renderer.render(scene, camera);
+});
+</script>
